@@ -96,7 +96,7 @@ export default function CreateRecTrip({ goToRequestPage }) {
 
     setLoading(true);
     try {
-      const googleApiKey = "AIzaSyAyw0YsaMPZnp1-PJs7HqWcac-gofup67Y"; 
+      const googleApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       let startLat = null, startLng = null, destLat = null, destLng = null;
 
       const startQuery = `${stops[0]}, ${formData.from}, Lebanon`;
