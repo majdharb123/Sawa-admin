@@ -59,7 +59,7 @@ A full-stack web application built to manage and oversee the SAWA real-time tran
 **Majd Harb**
 * **LinkedIn:** [https://www.linkedin.com/in/majd-harb-cs/]
 * **GitHub:** [https://github.com/majdharb123]
-* **Email:** [majdhaeb37@gmail.com]
+* **Email:** [majdharb37@gmail.com]
 
 **Nour Bathiche**
 * **Co-Author & Project Partner**
