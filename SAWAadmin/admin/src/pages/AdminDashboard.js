@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import { io } from 'socket.io-client';
+import { ADMIN_API_URL } from '../config';
 
 import AdminMap from './AdminMaps'; 
 import AdminVerification from './AdminVerification'; 
@@ -9,12 +10,11 @@ import CreateTrips from './CreateTrips';
 import RequestTrip from './RequestTrip'; 
 import Reports from './Reports'; 
 
-import { 
-  TrendingUp, Users, DollarSign, Bus, Map as MapIcon, CreditCard, 
-  Settings, Bell, CheckCircle, ShieldCheck, UserCheck, LayoutDashboard,
-  LogOut, ArrowUp, ArrowDown, Activity, AlertTriangle, PhoneCall,
-  Search, ZoomIn, MessageSquare, Percent, ArrowDownToLine, Gauge, Route,
-  X, Menu, RefreshCw, Award, Star, FileText
+import {
+  Users, DollarSign, Bus, Map as MapIcon,
+  CheckCircle, ShieldCheck, UserCheck, LayoutDashboard,
+  ArrowUp, ArrowDown, Activity, Route,
+  X, Menu, RefreshCw, FileText
 } from 'lucide-react';
 
 import { 
@@ -127,7 +127,7 @@ export default function AdminPanel() {
   });
 
   useEffect(() => {
-    const adminSocket = io('http://localhost:5001', {
+    const adminSocket = io(ADMIN_API_URL, {
       transports: ['websocket'],
     });
 
@@ -161,7 +161,7 @@ export default function AdminPanel() {
     const fetchStats = async () => {
       try {
         console.log("Fetching data from Node.js...");
-        const response = await axios.get('http://localhost:5001/api/admin/dashboard-stats');
+        const response = await axios.get(`${ADMIN_API_URL}/api/admin/dashboard-stats`);
         
         if (response.data && response.data.success) {
           setDashboardData(response.data.stats);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ADMIN_API_URL } from '../config';
 import { 
   MapPin, Clock, DollarSign, Route, 
   Plus, Trash2, CheckCircle2, Timer, 
@@ -141,7 +142,7 @@ export default function CreateRecTrip({ goToRequestPage }) {
         dest_lng: destLng
       };
 
-      const response = await axios.post('http://localhost:5001/api/admin/recurrent-routes/create', tripData);
+      const response = await axios.post(`${ADMIN_API_URL}/api/admin/recurrent-routes/create`, tripData);
       
       if (response.data.success) {
         setSuccessMsg('Recurrent Trip Created Successfully!');

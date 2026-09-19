@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const admin = require("firebase-admin");
+const { getMessaging } = require("firebase-admin/messaging");
 
 
 async function sendFirebasePushNotification(fcmToken, title, body, route = "/", reason = "") {
@@ -17,7 +17,7 @@ async function sendFirebasePushNotification(fcmToken, title, body, route = "/", 
   };
 
   try {
-    await admin.messaging().send(message);
+    await agetMessaging().send(message);
     console.log(`✅ Push Notification sent successfully to: ${fcmToken} | Route: ${route}`);
   } catch (error) {
     console.error("❌ Error sending Firebase Push Notification:", error);

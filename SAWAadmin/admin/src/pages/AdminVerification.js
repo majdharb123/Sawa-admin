@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import { io } from 'socket.io-client';
+import { ADMIN_API_URL, MAIN_BACKEND_URL } from '../config';
 import { 
   CheckCircle, XCircle, Shield, ZoomIn, Car, MapPin, 
-  Calendar, Phone, Mail, MessageSquare, AlertTriangle, Home, Globe, 
-  Layers, ChevronRight, Eye, ShieldAlert, Award
+  Calendar, Phone, Mail, MessageSquare, Globe,
+  ShieldAlert
 } from 'lucide-react';
 
 export default function AdminVerification() {
@@ -15,9 +16,6 @@ export default function AdminVerification() {
   
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const ADMIN_API_URL = "http://localhost:5001"; 
-  const MAIN_BACKEND_URL = "http://localhost:5000"; 
 
   const getImageUrl = (path) => {
     if (!path) return 'https://placehold.co/600x400?text=No+Image';
@@ -52,7 +50,7 @@ export default function AdminVerification() {
   useEffect(() => {
     fetchApplicants(true);
 
-    const adminSocket = io('http://localhost:5001', {
+    const adminSocket = io(ADMIN_API_URL, {
       transports: ['websocket'],
     });
 
@@ -76,6 +74,9 @@ export default function AdminVerification() {
     return () => {
       adminSocket.disconnect();
     };
+
+    // Subscribe once on mount; cleanup disconnects the socket on unmount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
   const handleApprove = async () => {

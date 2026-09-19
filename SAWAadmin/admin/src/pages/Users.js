@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import { 
-  Users as UsersIcon, User, Bus, Search, 
-  MapPin, Phone, Ban, ShieldCheck, RefreshCw 
+import { ADMIN_API_URL } from '../config';
+import {
+  User, Bus, Search,
+  MapPin, Phone, Ban, ShieldCheck, RefreshCw
 } from 'lucide-react';
 
 export default function UsersList() {
@@ -15,7 +16,7 @@ export default function UsersList() {
   const fetchUsers = async (showLoader = true) => {
     if (showLoader) setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5001/api/admin/users');
+      const res = await axios.get(`${ADMIN_API_URL}/api/admin/users`);
       setUsers(res.data);
     } catch (error) {
       console.error("❌ Error fetching Sawa users:", error);
@@ -27,7 +28,7 @@ export default function UsersList() {
   useEffect(() => {
     fetchUsers(true);
 
-    const adminSocket = io('http://localhost:5001', {
+    const adminSocket = io(ADMIN_API_URL, {
       transports: ['websocket'],
     });
 
@@ -57,7 +58,7 @@ export default function UsersList() {
   const handleBanUser = async (userId, userName, userRole) => {
     if (window.confirm(`Are you sure you want to BAN ${userName}?`)) {
       try {
-        await axios.patch(`http://localhost:5001/api/admin/users/ban`, {
+        await axios.patch(`${ADMIN_API_URL}/api/admin/users/ban`, {
           id: userId,
           role: userRole
         });

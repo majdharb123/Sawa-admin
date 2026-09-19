@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const admin = require('firebase-admin'); 
+const { getMessaging } = require("firebase-admin/messaging");
 const db = require('../db'); 
 
 
@@ -109,7 +109,7 @@ router.put('/approve-captain/:id', async (req, res) => {
                 data: { route: '/login' }, 
                 token: fcm_token
             };
-            admin.messaging().send(message)
+            getMessaging().send(message)
                 .catch(error => console.error('❌ Error sending notification:', error));
         }
 
@@ -158,7 +158,7 @@ router.put('/reject-captain/:id', async (req, res) => {
                 data: { route: '/CreateAccCaptain', reason: reason || 'Unknown error' },
                 token: fcm_token
             };
-            admin.messaging().send(message).catch(error => console.error('❌ Error sending notification:', error));
+           getMessaging().send(message).catch(error => console.error('❌ Error sending notification:', error));
         }
 
         
@@ -202,7 +202,7 @@ router.put('/approve-zamil/:id', async (req, res) => {
                 data: { route: '/login' }, 
                 token: fcm_token
             };
-            admin.messaging().send(message).catch(err => console.error(err));
+            getMessaging().send(message).catch(err => console.error(err));
         }
 
         
@@ -250,7 +250,7 @@ router.put('/reject-zamil/:id', async (req, res) => {
                 data: { route: '/CreateAccZamil', reason: reason || 'Unknown error' }, 
                 token: fcm_token
             };
-            admin.messaging().send(message).catch(err => console.error(err));
+            getMessaging().send(message).catch(err => console.error(err));
         }
 
 

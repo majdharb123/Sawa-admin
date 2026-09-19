@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# SAWA Admin Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The React frontend for the SAWA Administrative Dashboard. It provides interfaces for platform statistics, account verification, user administration, live fleet monitoring, recurrent route management, trip requests, and report handling.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+* React.js
+* Tailwind CSS
+* Axios
+* Socket.IO Client
+* React Leaflet
+* Recharts
+* Firebase-connected backend notifications
 
-### `npm start`
+## Environment Configuration
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Create a `.env` file from `.env.example`:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`REACT_APP_ADMIN_API_URL=http://localhost:5001`
 
-### `npm test`
+`REACT_APP_MAIN_BACKEND_URL=http://localhost:5000`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`REACT_APP_GOOGLE_MAPS_API_KEY=your_restricted_google_maps_api_key`
 
-### `npm run build`
+The Google Maps API key is used by browser code and must be restricted by website, API, and usage limits in Google Cloud Console.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install the dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm install`
 
-### `npm run eject`
+## Development
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`npm start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application will be available at:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`http://localhost:3000`
 
-## Learn More
+## Production Build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Create an optimized production build:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm run build`
 
-### Code Splitting
+The generated production files will be placed in the `build` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Security
 
-### Analyzing the Bundle Size
+* Never commit the local `.env` file.
+* Do not place database credentials or Firebase service-account credentials in frontend environment variables.
+* Only placeholder values should be committed through `.env.example`.
+* Frontend environment variables are included in the browser bundle and must not be treated as private secrets.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For complete backend configuration and project documentation, see the main README at the repository root.

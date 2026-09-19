@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
-import { io } from 'socket.io-client'; 
-import { 
-  Bus, Users, AlertTriangle, MapPin, 
-  ShieldAlert, Gauge, Route, PhoneCall, CheckCircle2, Search
+import { io } from 'socket.io-client';
+import { ADMIN_API_URL, MAIN_BACKEND_URL } from '../config';
+import {
+  Bus, PhoneCall, Search
 } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -43,7 +43,7 @@ export default function AdminMap() {
   useEffect(() => {
     const fetchInitialTrips = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/admin/radar/live-trips');
+        const response = await axios.get(`${ADMIN_API_URL}/api/admin/radar/live-trips`);
         if (response.data && response.data.success) {
           setTrips(response.data.trips);
         }
@@ -56,7 +56,7 @@ export default function AdminMap() {
 
     fetchInitialTrips();
 
-    const socket = io('http://localhost:5000'); 
+    const socket = io(MAIN_BACKEND_URL);
 
     socket.on('admin-radar-update', (data) => {
       console.log("📍 Live Update Received:", data);
@@ -64,7 +64,7 @@ export default function AdminMap() {
       setTrips(prevTrips => prevTrips.map(trip => {
         const currentTripId = trip.id.replace('TRP-', ''); 
         
-        if (currentTripId == data.trip_id) {
+        if (String(currentTripId) === String(data.trip_id)) {
           return { ...trip, lat: data.lat, lng: data.lng }; 
         }
         return trip;

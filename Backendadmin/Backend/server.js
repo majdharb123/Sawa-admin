@@ -20,13 +20,13 @@ app.set("io", io);
 app.use(cors());
 app.use(express.json());
 
-const admin = require("firebase-admin");
-const serviceAccount = require("./firebase-key.json"); 
+const { cert, getApps, initializeApp } = require("firebase-admin/app");
+const serviceAccount = require("./firebase-key.json");
 
-if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });
+if (getApps().length === 0) {
+  initializeApp({
+    credential: cert(serviceAccount),
+  });
 }
 
 

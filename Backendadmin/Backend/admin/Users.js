@@ -1,17 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db'); 
-const admin = require('firebase-admin');
-
-
-if (!admin.apps.length) {
-const serviceAccount = require('../firebase-key.json');
-    
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount)
-    });
-    console.log("🔥 Firebase Admin Initialized in Users route.");
-}
+const { getMessaging } = require("firebase-admin/messaging");
 
 
 router.get('/', async (req, res) => {
@@ -106,7 +96,7 @@ router.patch('/ban', async (req, res) => {
             };
 
             try {
-                const response = await admin.messaging().send(payload);
+                const response = await getMessaging().send(payload);
                 console.log(`🚀 FCM Sent Successfully to ${role} (ID: ${id}):`, response.messageId);
             } catch (fcmError) {
                 console.error(`❌ FCM Sending Error for ${role} (ID: ${id}):`, fcmError.message);

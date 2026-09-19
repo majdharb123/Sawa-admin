@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import { ADMIN_API_URL } from '../config';
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
@@ -8,7 +9,7 @@ const Reports = () => {
   const fetchReports = async (showLoader = true) => {
     if (showLoader) setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5001/api/reports/all');
+      const response = await fetch(`${ADMIN_API_URL}/api/reports/all`);
       const data = await response.json();
       setReports(data);
       setIsLoading(false);
@@ -21,7 +22,7 @@ const Reports = () => {
   useEffect(() => {
     fetchReports(true);
 
-    const adminSocket = io('http://localhost:5001', {
+    const adminSocket = io(ADMIN_API_URL, {
       transports: ['websocket'],
     });
 
@@ -55,7 +56,7 @@ const Reports = () => {
     if (report.status === 'Resolved') return;
 
     try {
-      const response = await fetch(`http://localhost:5001/api/reports/resolve/${report.id}`, {
+      const response = await fetch(`${ADMIN_API_URL}/api/reports/resolve/${report.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
